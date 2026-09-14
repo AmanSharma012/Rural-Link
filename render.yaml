@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: rurallink
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ORS_API_KEY
+        sync: false
+      - key: MODEL_ARTIFACT_PATH
+        value: /app/backend/models/artifacts.joblib

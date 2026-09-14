@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+backend/.venv/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Database
+*.sqlite3
+*.db
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/dist-*/
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+
+# Backups / generated files
+.codex-backups/
+**/.codex-backups/
+*.log
+.local-logs/
+
+# Temporary/backup project versions
+S14-FINAL-MODEL_APP_w/
+route-update/
+
+git
+frontend/src/pages/Login.current-backup.jsx
