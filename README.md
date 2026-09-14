@@ -1,244 +1,182 @@
 # RuralLink
 
-## AI-Powered Rural Delivery Platform
+### AI-Powered Rural Last-Mile Delivery Platform
 
-RuralLink is a full-stack rural logistics platform for customer order placement, delivery prioritization, route planning and driver delivery management.
+RuralLink is a full-stack rural logistics platform designed to improve the coordination of deliveries in remote and underserved areas.
 
-It combines customer orders, delivery priorities, vehicle constraints, route optimization and offline driver operations in one system.
+It combines AI-assisted order processing, delivery priority prediction, route optimization, GPS tracking, and an offline-first Driver PWA to support reliable last-mile delivery even when internet connectivity is limited.
 
-RuralLink is designed for remote and underserved areas where logistics may be affected by:
-
-- Poor or changing road conditions.
-- Limited vehicle availability.
-- Small and scattered shipments.
-- Perishable goods.
-- Urgent medicine or essential-goods deliveries.
-- Unreliable internet connectivity.
-- Inefficient manual allocation.
-- Repeated deprioritization of small producers and vulnerable communities.
-
-The platform is intended to act as a logistics coordination layer. It does not initially require the project team to own a complete delivery fleet.
+> **My Role:** Driver PWA & Offline Storage
 
 ---
 
-## Key Idea
+## Overview
 
-Conventional logistics systems often optimize for distance, cost and delivery speed. This can result in remote, low-volume or vulnerable users being served less frequently.
+Rural delivery networks can face challenges such as:
 
-RuralLink adds a coordination and decision-support layer that considers:
+* Poor or changing road conditions
+* Limited vehicle availability
+* Small and scattered shipments
+* Perishable goods
+* Urgent medicine and essential-goods deliveries
+* Unreliable internet connectivity
+* Inefficient manual allocation
 
-- Shipment urgency.
-- Product perishability.
-- Vehicle capacity.
-- Estimated delivery time.
-- Delay risk.
-- Road-based route geometry.
-- Driver availability.
-- Offline operation.
-- Fairness in allocation.
+RuralLink provides a centralized coordination layer for customers, dispatchers and drivers.
+
+### Core Workflow
 
 ```text
 Customer / Producer
         ↓
-Order and priority registration
+Order Registration
         ↓
-RuralLink allocation and route engine
+AI-Assisted Parsing
         ↓
-Driver PWA + vehicle assignment
+Priority / ETA / Delay Prediction
         ↓
-Delivery, offline updates and synchronization
+Route Optimization
+        ↓
+Driver Assignment
+        ↓
+Driver PWA
+        ↓
+Delivery + GPS Updates
+        ↓
+Offline Storage & Synchronization
 ```
 
 ---
 
-## Main Features
+## My Contribution
+
+### Driver PWA & Offline Storage
+
+I worked primarily on the driver-facing side of RuralLink, focusing on the Driver PWA and offline functionality.
+
+My contributions include:
+
+* Driver login and dashboard
+* Assigned delivery management
+* Delivery status workflow
+* Delivery details interface
+* Route and map visualization
+* GPS/location tracking
+* Offline delivery-status storage
+* Offline GPS/event storage
+* Synchronization after connectivity is restored
+* PWA installation and frontend integration
+* Backend API integration for driver workflows
+
+The goal was to allow drivers to continue important delivery operations even during temporary network loss.
+
+---
+
+## Key Features
 
 ### Customer Order Portal
 
-- Place delivery orders.
-- Submit natural-language order messages.
-- View order status.
-- Receive priority and ETA information.
-- Track delivery progress.
-- Use customer-facing delivery workflows.
+* Create delivery orders
+* Submit natural-language order messages
+* View order information
+* Receive delivery priority and ETA information
+* Track delivery progress
 
-### AI-Assisted Message Parsing
+### AI-Assisted Order Parsing
 
-- Parses natural-language order messages using Google Gemini when configured.
-- Extracts relevant order information.
-- Supports an offline keyword-based fallback parser when Gemini is unavailable.
-- Keeps parsing separate from final delivery allocation.
+* Uses Google Gemini when configured
+* Extracts structured information from natural-language orders
+* Includes a keyword-based fallback parser
+* Continues basic parsing when Gemini is unavailable
 
-### Delivery Prioritization
+### Delivery Prediction
 
-- Predicts delivery priority.
-- Considers urgency and order information.
-- Estimates ETA.
-- Predicts delay risk.
-- Supports machine-learning-based prediction through the backend ML service.
-- Falls back safely when optional prediction services are unavailable.
+The backend ML service supports:
+
+* Delivery priority prediction
+* ETA estimation
+* Delay-risk prediction
+
+The system includes fallback behavior when optional prediction services are unavailable.
 
 ### Route Optimization
 
-- Uses Google OR-Tools for route optimization.
-- Considers delivery sequence and vehicle routing.
-- Supports optional OpenRouteService road routing.
-- Uses a clearly labelled straight-line routing fallback if OpenRouteService is unavailable.
-- Supports route planning for driver deliveries.
+* Google OR-Tools based route optimization
+* Delivery sequence optimization
+* Driver and delivery assignment support
+* Optional OpenRouteService road routing
+* Straight-line fallback routing for demonstration purposes
 
 ### Driver Progressive Web App
 
-- Driver login.
-- Assigned delivery list.
-- Delivery status updates.
-- GPS location updates.
-- Route map.
-- Offline delivery-status storage.
-- Offline GPS storage.
-- Automatic synchronization after connectivity returns.
-- Progressive Web App installation support.
+* Driver login
+* Assigned delivery dashboard
+* Delivery details
+* Delivery status updates
+* GPS tracking
+* Route visualization
+* Offline delivery-status storage
+* Offline GPS/event storage
+* Automatic synchronization after reconnection
+* PWA installation support
 
 ### Backend API
 
-- FastAPI REST API.
-- Automatic API documentation through Swagger UI.
-- Health-check endpoint.
-- Order management.
-- Driver management.
-- Route planning.
-- Prediction endpoints.
-- Offline synchronization support.
-
-### Deployment
-
-- Docker support.
-- Render deployment configuration.
-- `render.yaml` Blueprint configuration.
-- Local development support.
-- Optional external Gemini and OpenRouteService integrations.
+* FastAPI REST API
+* Swagger API documentation
+* Health-check endpoint
+* Order management
+* Driver management
+* Route planning
+* Prediction services
+* Offline synchronization
 
 ---
 
-## Target Users
+## Offline-First Driver Workflow
 
-### Primary Users
-
-- Rural customers.
-- Small producers.
-- FPOs and SHGs.
-- Local delivery operators.
-- Drivers and vehicle owners.
-- Community pickup-point operators.
-- NGOs.
-- Government logistics programs.
-- Rural retailers and processors.
-
-### Platform Operators
-
-- Dispatchers.
-- Fleet managers.
-- Administrators.
-- FPO coordinators.
-- NGO or government logistics coordinators.
-
-### Beneficiaries
-
-- Remote households.
-- Small-volume producers.
-- Patients requiring urgent medicines.
-- Elderly and vulnerable users.
-- Rural consumers.
-- Communities with poor road or internet access.
-
----
-
-## Application URLs
-
-The following URLs are available when running the application locally.
-
-| Service | URL |
-|---|---|
-| Customer Portal | [http://127.0.0.1:8000/](http://127.0.0.1:8000/) |
-| Driver PWA | [http://127.0.0.1:8000/driver/](http://127.0.0.1:8000/driver/) |
-| API Documentation | [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) |
-| Health Check | [http://127.0.0.1:8000/health](http://127.0.0.1:8000/health) |
-
-The frontend must be built before starting the FastAPI application locally.
-
----
-
-## Complete Workflow
-
-```text
-Customer or producer registers an order
-                ↓
-Natural-language message is parsed
-                ↓
-Order details are validated
-                ↓
-Delivery priority, ETA and delay risk are predicted
-                ↓
-Pending orders are collected
-                ↓
-Available drivers and delivery resources are identified
-                ↓
-Route is optimized using OR-Tools
-                ↓
-Road-based geometry is requested when available
-                ↓
-Driver receives the assigned route
-                ↓
-Driver performs delivery through the PWA
-                ↓
-Events are stored locally if offline
-                ↓
-GPS and delivery updates synchronize after reconnection
-                ↓
-Customer and dispatcher receive updated status
-                ↓
-System records delivery and performance metrics
-```
-
----
-
-## Offline Workflow
-
-The driver PWA is designed to continue operating during temporary network loss.
+The Driver PWA is designed to continue essential operations during temporary network loss.
 
 ### Before Going Offline
 
-The application can download or cache:
+The application can cache:
 
-- Assigned deliveries.
-- Route information.
-- Delivery details.
-- Driver information.
-- Map and route data.
-- Required delivery actions.
+* Assigned deliveries
+* Delivery information
+* Route information
+* Required driver data
 
 ### During Offline Operation
 
 The driver can:
 
-- View assigned deliveries.
-- View the cached route.
-- Update delivery status.
-- Store GPS locations.
-- Add delivery notes.
-- Continue the delivery workflow.
+* View assigned deliveries
+* View cached route information
+* Update delivery status
+* Store GPS locations
+* Continue the delivery workflow
 
-### After Connectivity Returns
+Events are stored locally using browser storage.
 
-The application:
+### After Reconnection
 
-1. Detects network availability.
-2. Uploads pending local events.
-3. Synchronizes GPS updates.
-4. Updates delivery status in the backend.
-5. Handles duplicate or already-synchronized events.
-6. Refreshes the dispatcher and customer views.
+```text
+Network Restored
+       ↓
+Detect Connectivity
+       ↓
+Read Pending Local Events
+       ↓
+Synchronize with Backend
+       ↓
+Update Delivery Status
+       ↓
+Synchronize GPS Data
+       ↓
+Refresh Application State
+```
 
-The prototype uses local storage for offline events. Production deployment should add stronger conflict handling, encrypted local storage and device-level security.
+The current implementation is prototype-level. A production system would require stronger conflict resolution, encrypted local storage and additional device security.
 
 ---
 
@@ -246,31 +184,37 @@ The prototype uses local storage for offline events. Production deployment shoul
 
 ### Frontend
 
-- React
-- Vite
-- Tailwind CSS
-- React Router
-- Axios
-- Leaflet
-- React Leaflet
-- Vite PWA
+* React
+* Vite
+* Tailwind CSS
+* React Router
+* Axios
+* Leaflet
+* React Leaflet
+* Vite PWA
 
 ### Backend
 
-- Python 3.12
-- FastAPI
-- Uvicorn
-- SQLite
-- Scikit-learn
-- Google OR-Tools
-- Google Gemini API
-- OpenRouteService API
+* Python 3.12
+* FastAPI
+* Uvicorn
+* SQLite
+* Scikit-learn
+
+### AI & Optimization
+
+* Google Gemini API
+* Google OR-Tools
+
+### Routing
+
+* OpenRouteService API
+* Leaflet / OpenStreetMap
 
 ### Deployment
 
-- Docker
-- Render
-- Render Blueprint through `render.yaml`
+* Docker
+* Render
 
 ---
 
@@ -286,22 +230,38 @@ RuralLink/
 │   │   ├── gemini_service.py
 │   │   ├── ml_service.py
 │   │   ├── route_optimizer.py
-│   │   └── routing_service.py
+│   │   ├── routing_service.py
+│   │   └── schemas.py
+│   │
+│   ├── data/
+│   │   └── generate_synthetic_data.py
 │   │
 │   ├── models/
-│   │   └── artifacts.joblib
+│   │   ├── artifacts.joblib
+│   │   └── train_models.py
 │   │
-│   ├── requirements.txt
-│   └── .env.example
+│   ├── tests/
+│   ├── .env.example
+│   └── requirements.txt
 │
 ├── frontend/
-│   ├── src/
 │   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   └── App.jsx
+│   │
 │   ├── package.json
 │   └── vite.config.js
 │
+├── data/
 ├── Dockerfile
 ├── render.yaml
+├── start-RuralLink.ps1
+├── .dockerignore
+├── .gitignore
 └── README.md
 ```
 
@@ -309,15 +269,13 @@ RuralLink/
 
 ## Requirements
 
-Install the following software before running locally:
+Install the following before running the project locally:
 
-- Python 3.12.
-- Node.js 22 or later.
-- npm.
-- Git.
-- Docker Desktop, optional for container deployment.
-
-Python 3.12 is recommended for dependency compatibility.
+* Python 3.12
+* Node.js 22+
+* npm
+* Git
+* Docker Desktop (optional)
 
 ---
 
@@ -326,8 +284,8 @@ Python 3.12 is recommended for dependency compatibility.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Avinab-45/RuralLink-App-SOAIDEATHON26.git
-cd RuralLink-App-SOAIDEATHON26
+git clone https://github.com/AmanSharma012/Rural-Link.git
+cd Rural-Link
 ```
 
 ### 2. Build the Frontend
@@ -339,9 +297,9 @@ npm run build
 cd ..
 ```
 
-The build output must be generated before starting FastAPI because the backend serves the built frontend application.
+The frontend build is required because the FastAPI backend serves the built frontend application.
 
-### 3. Create the Python Virtual Environment
+### 3. Create a Python Virtual Environment
 
 #### Windows PowerShell
 
@@ -353,7 +311,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-#### Linux or macOS
+#### Linux / macOS
 
 ```bash
 cd backend
@@ -363,7 +321,9 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 4. Create the Environment File
+### 4. Configure Environment Variables
+
+From the `backend` directory:
 
 #### Windows PowerShell
 
@@ -371,15 +331,17 @@ pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-#### Linux or macOS
+#### Linux / macOS
 
 ```bash
 cp .env.example .env
 ```
 
-Update the values in `backend/.env` if you want to enable optional external services.
+Edit `backend/.env` if you want to enable optional external services.
 
-### 5. Start the Application
+**Never commit your actual `.env` file or API keys to GitHub.**
+
+### 5. Start the Backend
 
 From the `backend` directory:
 
@@ -387,131 +349,165 @@ From the `backend` directory:
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Open the customer portal:
+---
 
-```text
-http://127.0.0.1:8000/
-```
+## Local Application URLs
 
-Open the driver PWA:
+When the application is running:
 
-```text
-http://127.0.0.1:8000/driver/
-```
-
-Open API documentation:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
-Check application health:
-
-```text
-http://127.0.0.1:8000/health
-```
+| Service           | URL                             |
+| ----------------- | ------------------------------- |
+| Customer Portal   | `http://127.0.0.1:8000/`        |
+| Driver PWA        | `http://127.0.0.1:8000/driver/` |
+| API Documentation | `http://127.0.0.1:8000/docs`    |
+| Health Check      | `http://127.0.0.1:8000/health`  |
 
 ---
 
 ## Environment Variables
 
-Create this file locally:
-
-```text
-backend/.env
-```
-
-Example:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key
-GEMINI_MODEL_NAME=gemini-3.7-flash
-
-ORS_API_KEY=your_openrouteservice_api_key
-ORS_BASE_URL=https://api.openrouteservice.org
-
-DATABASE_PATH=./rurallink.db
-```
-
-## Environment Variables
-
-RuralLink uses environment variables for optional external services and
-deployment-specific configuration.
-
-### Local Development
-
-Create this file locally:
-
-```text
-backend/.env
-```
-
-Example:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key
-GEMINI_MODEL_NAME=gemini-3.7-flash
-
-ORS_API_KEY=your_openrouteservice_api_key
-ORS_BASE_URL=https://api.openrouteservice.org
-
-DATABASE_PATH=./rurallink.db
-```
-
-Do not commit `backend/.env` to GitHub. Commit only the safe template:
+The safe template is available at:
 
 ```text
 backend/.env.example
 ```
 
-### Render Deployment
+Example:
 
-For Render, add the following variables through:
+```env
+GEMINI_API_KEY=
+GEMINI_MODEL_NAME=gemini-2.5-flash
 
-```text
-Render Dashboard
-→ Your Service
-→ Environment
-→ Add Environment Variable
+ORS_API_KEY=
+ORS_BASE_URL=https://api.openrouteservice.org
 ```
 
-| Variable | Required | Description |
-|---|---:|---|
-| `GEMINI_API_KEY` | No | Enables Gemini-based natural-language order parsing |
-| `GEMINI_MODEL_NAME` | No | Gemini model name; `gemini-3.7-flash` |
-| `ORS_API_KEY` | No | Enables OpenRouteService road-based route geometry |
-| `ORS_BASE_URL` | No | OpenRouteService API endpoint |
-| `DATABASE_PATH` | No | Custom SQLite database location |
-
-
-### Optional Service Fallbacks
+### Optional Services
 
 If `GEMINI_API_KEY` is not configured:
 
-- RuralLink uses the offline keyword-based order parser.
+* The application can use the keyword-based order parser.
 
 If `ORS_API_KEY` is not configured:
 
-- RuralLink uses the configured fallback route method, such as straight-line
-  routing for demonstration purposes.
+* The application can use the configured fallback routing method.
 
-If `DATABASE_PATH` is not configured:
+Environment variable names and supported values should follow the current `.env.example` and application configuration.
 
-- RuralLink uses the default SQLite database path defined by the application.
+---
+
+## API Endpoints
+
+| Method | Endpoint                                      | Description                          |
+| ------ | --------------------------------------------- | ------------------------------------ |
+| GET    | `/health`                                     | Application health status            |
+| POST   | `/parse-message`                              | Parse a natural-language order       |
+| POST   | `/predict`                                    | Predict priority, ETA and delay risk |
+| POST   | `/optimize-route`                             | Optimize a delivery route            |
+| POST   | `/api/orders`                                 | Create an order                      |
+| GET    | `/api/orders`                                 | List orders                          |
+| POST   | `/api/orders/plan`                            | Plan saved orders                    |
+| POST   | `/api/driver/login`                           | Driver login                         |
+| GET    | `/api/driver/{driver_id}/deliveries`          | Get driver deliveries                |
+| GET    | `/api/driver/{driver_id}/route`               | Get driver route                     |
+| POST   | `/api/driver/{driver_id}/location`            | Update driver GPS                    |
+| PATCH  | `/api/driver/deliveries/{delivery_id}/status` | Update delivery status               |
+
+Interactive documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## AI & Machine Learning
+
+### Google Gemini
+
+Gemini is used for natural-language order parsing.
+
+Example:
+
+```text
+"I need urgent medicine delivered to village X"
+```
+
+The system can extract relevant delivery information and convert it into structured data.
+
+A keyword-based fallback parser is available when Gemini is not configured.
+
+### Machine Learning
+
+The backend ML service supports:
+
+* Delivery priority prediction
+* ETA prediction
+* Delay-risk prediction
+
+The trained model artifact is stored in:
+
+```text
+backend/models/artifacts.joblib
+```
+
+### Route Optimization
+
+Google OR-Tools is used for delivery route optimization.
+
+The routing process can consider:
+
+* Delivery locations
+* Delivery sequence
+* Driver availability
+* Estimated travel time
+* Route distance
+* Delivery priority
+* Delivery constraints
+
+When configured, OpenRouteService can provide road-based routing information.
+
+---
+
+## Driver PWA
+
+The Driver PWA is one of the main components of RuralLink.
+
+### Driver Workflow
+
+```text
+Driver Login
+     ↓
+Dashboard
+     ↓
+Assigned Deliveries
+     ↓
+Delivery Details
+     ↓
+Route / GPS
+     ↓
+Update Delivery Status
+     ↓
+Offline Storage if Network is Unavailable
+     ↓
+Automatic Synchronization
+```
+
+The PWA allows drivers to continue essential delivery operations during temporary connectivity problems.
 
 ---
 
 ## Docker
 
-### Build the Docker Image
+### Build
 
 From the repository root:
 
-```powershell
-docker build --no-cache -t rurallink .
+```bash
+docker build -t rurallink .
 ```
 
-### Run the Container
+### Run
 
 Windows PowerShell:
 
@@ -519,7 +515,7 @@ Windows PowerShell:
 docker run --rm --name rurallink -p 8000:8000 --env-file .\backend\.env rurallink
 ```
 
-Linux or macOS:
+Linux / macOS:
 
 ```bash
 docker run --rm \
@@ -529,403 +525,199 @@ docker run --rm \
   rurallink
 ```
 
-Open:
-
-```text
-http://127.0.0.1:8000/
-```
-
 ---
 
 ## Render Deployment
 
-This repository includes:
+The repository includes:
 
 ```text
 Dockerfile
 render.yaml
 ```
 
-The Render Blueprint describes the deployment configuration as infrastructure-as-code. Render supports Blueprint files for defining and deploying services from a repository.
+The project can be deployed using Render's Blueprint configuration.
 
-### Deployment Steps
-
-1. Push the repository to GitHub.
-2. Open the Render Dashboard.
-3. Select **New +**.
-4. Select **Blueprint**.
-5. Connect the GitHub repository.
-6. Allow Render to detect `render.yaml`.
-7. Add optional environment variables.
-8. Deploy the service.
-9. Open the generated Render URL.
-10. Verify `/health`, `/docs`, `/` and `/driver/`.
-
-### Render Environment Variables
-
-Add these through the Render Dashboard:
+General deployment flow:
 
 ```text
-GEMINI_API_KEY
-GEMINI_MODEL_NAME
-ORS_API_KEY
-ORS_BASE_URL
-DATABASE_PATH
+GitHub Repository
+       ↓
+Render Blueprint
+       ↓
+Configure Environment Variables
+       ↓
+Deploy
+       ↓
+Verify /health
+       ↓
+Verify Customer Portal
+       ↓
+Verify Driver PWA
 ```
 
----
-
-
-## API Endpoints
-
-The following endpoints are available in the current API.
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/health` | Application health status |
-| `POST` | `/parse-message` | Parse a natural-language order |
-| `POST` | `/predict` | Predict delivery priority, ETA and delay risk |
-| `POST` | `/optimize-route` | Optimize a delivery route |
-| `POST` | `/api/orders` | Create a customer order |
-| `GET` | `/api/orders` | List customer orders |
-| `POST` | `/api/orders/plan` | Plan saved customer orders |
-| `POST` | `/api/driver/login` | Driver login |
-| `GET` | `/api/driver/{driver_id}/deliveries` | Get driver deliveries |
-| `GET` | `/api/driver/{driver_id}/route` | Get driver route |
-| `POST` | `/api/driver/{driver_id}/location` | Update driver GPS location |
-| `PATCH` | `/api/driver/deliveries/{delivery_id}/status` | Update delivery status |
-
-Interactive API documentation is available at:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
----
-
-## Route Optimization
-
-RuralLink uses Google OR-Tools for route optimization.
-
-The route-planning process considers:
-
-- Delivery locations.
-- Delivery sequence.
-- Available orders.
-- Driver assignments.
-- Estimated travel time.
-- Route distance.
-- Order priority.
-- Delivery deadlines.
-- Delay risk.
-- Vehicle or driver constraints supported by the current implementation.
-
-When configured, OpenRouteService provides road-based route geometry. When it is unavailable, the system uses a clearly labelled straight-line fallback for demonstration purposes.
-
----
-
-## AI and Machine Learning
-
-RuralLink uses AI and machine learning selectively.
-
-### Gemini
-
-Gemini is used for:
-
-- Natural-language order parsing.
-- Extracting structured delivery information from customer messages.
-
-If Gemini is unavailable, the system falls back to keyword-based parsing.
-
-### Machine Learning
-
-The ML service supports predictions for:
-
-- Delivery priority.
-- Estimated arrival time.
-- Delay risk.
-
-The trained model artifact is stored at:
-
-```text
-backend/models/artifacts.joblib
-```
-
-
-### Deterministic Operations
-
-
-The final route respect:
-
-- Available resources.
-- Delivery feasibility.
-- Route constraints.
-- Driver and vehicle status.
-- Capacity.
-- Operational rules.
-
----
-
-## Driver PWA Features
-
-The Driver PWA provides:
-
-- Driver login.
-- Assigned delivery list.
-- Delivery details.
-- Delivery-status updates.
-- GPS tracking.
-- Route visualization.
-- Offline delivery-status storage.
-- Offline GPS storage.
-- Automatic synchronization.
-- PWA installation support.
-
----
-
-## Rural Logistics Workflow
-
-```text
-1. Customer or producer submits an order.
-2. The order is parsed and validated.
-3. Priority, ETA and delay risk are predicted.
-4. Saved orders are loaded into the planning process.
-5. Route optimization generates a delivery sequence.
-6. The driver receives assigned deliveries.
-7. The driver follows the route.
-8. The driver updates delivery status.
-9. Events are stored locally during network loss.
-10. Events synchronize when connectivity returns.
-11. The customer and dispatcher receive updated status.
-12. Delivery performance is recorded for evaluation.
-```
-
----
-
-## Current Project Status
-
-
-| Module | Status |
-|---|---|
-| Customer order portal | Complete / In-progress |
-| Driver PWA | Complete |
-| FastAPI backend | Complete |
-| Gemini message parsing | Complete |
-| Offline keyword parser | Complete |
-| ML priority prediction | Complete |
-| ML ETA prediction | Complete |
-| ML delay-risk prediction | Complete |
-| OR-Tools route optimization | Complete |
-| Straight-line fallback routing | Complete |
-| Offline delivery updates | Complete |
-| Offline GPS storage | Complete |
-| Automatic synchronization | Complete |
-| Docker deployment | In-progress |
-| Render deployment | Complete |
-
----
-
-## Demo Scenario
-
-A recommended demonstration scenario is:
-
-1. Open the customer portal.
-2. Submit a normal delivery order.
-3. Submit an urgent or perishable order.
-4. Show the parsed order details.
-5. Open the prediction result.
-6. Plan saved orders.
-7. Show the optimized route.
-8. Open the Driver PWA.
-9. Login as a driver.
-10. View assigned deliveries.
-11. Enable offline mode or simulate network loss.
-12. Update a delivery status.
-13. Show that the status is stored locally.
-14. Restore connectivity.
-15. Show automatic synchronization.
-16. Open the route map and GPS status.
-17. Check the API health endpoint.
-18. Open Swagger UI and demonstrate the available endpoints.
+For production deployment, persistent storage should be used instead of relying on ephemeral SQLite storage.
 
 ---
 
 ## Testing
 
-Run backend tests, if available:
+Backend tests can be run using:
 
 ```bash
 cd backend
 pytest
 ```
 
-Run frontend tests, if configured:
-
-```bash
-cd frontend
-npm test
-```
-
-Test the application manually using:
+Useful manual checks include:
 
 ```text
-http://127.0.0.1:8000/health
-http://127.0.0.1:8000/docs
-http://127.0.0.1:8000/
-http://127.0.0.1:8000/driver/
+/health
+/docs
+/
+/driver/
 ```
 
-### Important Test Scenarios
+Important scenarios include:
 
-- Customer creates a valid order.
-- Invalid order data is rejected.
-- Natural-language message is parsed.
-- Keyword fallback works without Gemini.
-- Route optimization works without OpenRouteService.
-- Saved orders can be planned.
-- Driver can login.
-- Driver can view deliveries.
-- Driver can update delivery status.
-- Offline status is stored locally.
-- GPS updates are stored locally.
-- Synchronization works after reconnecting.
-- Duplicate synchronization events are handled.
-- Health check returns a successful response.
+* Creating a customer order
+* Natural-language order parsing
+* Keyword parser fallback
+* Delivery prediction
+* Route optimization
+* Driver login
+* Viewing assigned deliveries
+* Updating delivery status
+* Offline delivery updates
+* Offline GPS storage
+* Synchronization after reconnection
 
 ---
 
-## Data and Deployment Limitations
+## Current Project Status
 
-- SQLite may not persist reliably on an ephemeral deployment.
-- Gemini and OpenRouteService require external API credentials.
-- Straight-line routing is only a fallback and does not represent road travel.
-- ML predictions depend on the quality and representativeness of training data.
-- GPS updates may be simulated or browser-dependent.
-- Offline synchronization is prototype-level unless conflict resolution is fully implemented.
-- The current application may not support full multi-fleet allocation.
-- A live deployment should use persistent storage and monitoring.
-- Medical and cold-chain deliveries require additional compliance, verification and physical monitoring in production.
+| Module                      | Status               |
+| --------------------------- | -------------------- |
+| Customer Order Portal       | Functional Prototype |
+| Driver PWA                  | Complete             |
+| FastAPI Backend             | Functional           |
+| Gemini Order Parsing        | Optional             |
+| Keyword Parser Fallback     | Functional           |
+| ML Prediction Services      | Functional           |
+| OR-Tools Route Optimization | Functional           |
+| Offline Delivery Updates    | Complete             |
+| Offline GPS Storage         | Complete             |
+| Automatic Synchronization   | Functional           |
+| Docker Configuration        | Available            |
+| Render Configuration        | Available            |
+
+The project is an academic/hackathon prototype rather than a production logistics platform.
+
+---
+
+## Demo Workflow
+
+A typical demonstration can follow this flow:
+
+1. Open the customer portal.
+2. Create a delivery order.
+3. Submit a natural-language order.
+4. Show parsed order information.
+5. Show priority, ETA and delay-risk prediction.
+6. Plan the saved orders.
+7. Display the optimized route.
+8. Open the Driver PWA.
+9. Log in as a driver.
+10. View assigned deliveries.
+11. Simulate network loss.
+12. Update a delivery status.
+13. Show the locally stored update.
+14. Restore connectivity.
+15. Demonstrate synchronization.
+16. Show the route and GPS information.
+17. Open Swagger UI.
+
+---
+
+## Limitations
+
+* SQLite is suitable for the prototype but should be replaced with persistent production storage.
+* Gemini and OpenRouteService require external API credentials.
+* Straight-line routing is only a fallback and does not represent actual road travel.
+* ML predictions depend on the quality of the training data.
+* GPS behavior depends on browser and device permissions.
+* Offline synchronization is prototype-level.
+* Production deployment would require stronger authentication and authorization.
+* Production systems handling medicines would require additional compliance and monitoring.
+* Multi-fleet coordination is not fully implemented.
 
 ---
 
 ## Future Scope
 
-- PostgreSQL and PostGIS for production deployment.
-- Multi-vehicle and multi-fleet coordination.
-- Community pickup-point management.
-- Explicit fairness-aware allocation.
-- Perishability-aware scheduling.
-- Road-condition reporting.
-- Dynamic rerouting after road blockage.
-- Vehicle capacity constraints.
-- Temperature and cold-chain sensors.
-- SMS and IVR support.
-- Regional-language and voice interfaces.
-- Better ETA and demand prediction.
-- Government, NGO and FPO integrations.
-- Persistent deployment database.
-- Advanced audit and fairness analytics.
-- Scalable cloud deployment.
-
----
-
-## Repository Structure
-
-```text
-RuralLink-App-SOAIDEATHON26/
-│
-├── backend/
-│   ├── app/
-│   │   ├── main.py
-│   │   ├── database.py
-│   │   ├── gemini_service.py
-│   │   ├── ml_service.py
-│   │   ├── route_optimizer.py
-│   │   └── routing_service.py
-│   │
-│   ├── models/
-│   │   └── artifacts.joblib
-│   │
-│   ├── requirements.txt
-│   └── .env.example
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.js
-│
-├── docs/
-├── screenshots/
-├── diagrams/
-├── tests/
-├── Dockerfile
-├── render.yaml
-├── .gitignore
-└── README.md
-```
+* PostgreSQL and PostGIS
+* Multi-vehicle and multi-fleet coordination
+* Community pickup-point management
+* Fairness-aware allocation
+* Perishability-aware scheduling
+* Road-condition reporting
+* Dynamic rerouting
+* Vehicle capacity constraints
+* Cold-chain monitoring
+* SMS and IVR support
+* Regional-language and voice interfaces
+* Improved ETA and demand prediction
+* Government, NGO and FPO integrations
+* Advanced audit and fairness analytics
+* Scalable cloud deployment
 
 ---
 
 ## Team
 
-| Member | Responsibility |
-|---|---|
-| AVINAB AMLAN NAYAK | Backend and Springboot |
-| DIBYANI TRIPATHY | React Frontend |
-| ARYAN KUMAR SAHU | AIML, OR Tools and prediction services |
-| AMAN KUMAR SHARMA | Driver PWA and offline storage |
-| YAMINI MISHRA | PPT and Video Editing |
-| SANCHITA RAJU | Testing and Documentation |
+| Member             | Contribution                 |
+| ------------------ | ---------------------------- |
+| Avinab Amlan Nayak | Backend                      |
+| Dibyani Tripathy   | React Frontend               |
+| Aryan Kumar Sahu   | AI/ML & OR-Tools             |
+| Aman Kumar Sharma  | Driver PWA & Offline Storage |
+| Yamini Mishra      | Presentation & Video         |
+| Sanchita Raju      | Testing & Documentation      |
 
 ---
 
+## Third-Party Technologies
 
-## Third-Party Attribution
+RuralLink uses open-source libraries and third-party services including:
 
-This project may use third-party services, libraries and data, including:
+* React
+* FastAPI
+* Scikit-learn
+* Google OR-Tools
+* Google Gemini API
+* OpenRouteService
+* Leaflet
+* OpenStreetMap
 
-- React.
-- FastAPI.
-- Scikit-learn.
-- Google OR-Tools.
-- Google Gemini API.
-- OpenRouteService.
-- Leaflet.
-- OpenStreetMap data, if used.
+Appropriate licenses and attribution requirements should be retained for third-party dependencies.
 
-Check and retain the license and attribution requirements of every third-party dependency used by the actual implementation.
-
-If OpenStreetMap data is used, include the required attribution:
+If OpenStreetMap data is displayed:
 
 ```text
 Map data © OpenStreetMap contributors.
 ```
 
-See the [OpenStreetMap copyright and license information](https://www.openstreetmap.org/copyright).
-
----
-
-
-## References
-
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [FastAPI Deployment Documentation](https://fastapi.tiangolo.com/deployment/)
-- [Google OR-Tools Routing Documentation](https://developers.google.com/optimization/routing)
-- [Google Gemini API Documentation](https://ai.google.dev/)
-- [OpenRouteService Documentation](https://openrouteservice.org/dev/)
-- [Leaflet Documentation](https://leafletjs.com/)
-- [React Documentation](https://react.dev/)
-- [Vite Documentation](https://vite.dev/)
-- [Render Blueprint Documentation](https://render.com/docs/blueprint-spec)
-- [Docker FastAPI Examples](https://docs.docker.com/reference/samples/fastapi/)
-- [OpenStreetMap Copyright and License](https://www.openstreetmap.org/copyright)
-- [PostGIS Documentation](https://postgis.net/documentation/)
-
 ---
 
 ## Acknowledgement
 
-RuralLink was developed as an academic prototype for SOAIDEATHON 2026.
+RuralLink was developed as an academic prototype for **SOA Ideathon 2026**.
 
-The platform demonstrates how AI-assisted parsing, machine-learning predictions, route optimization and offline-first driver workflows can be combined to improve rural delivery coordination.
+The project demonstrates how AI-assisted order processing, machine-learning predictions, route optimization and offline-first driver workflows can be combined to improve rural last-mile delivery coordination.
+
+---
+
+## Repository
+
+**GitHub:**
+https://github.com/AmanSharma012/Rural-Link
